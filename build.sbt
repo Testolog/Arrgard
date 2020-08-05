@@ -1,13 +1,34 @@
-ThisBuild / scalaVersion := "2.13.3"
 
-val akkaVersion = "2.6.8"
-
-lazy val arrgard = project
-  .in(file("."))
+lazy val core = project
+  .in(file("core"))
   .settings(
-    name := "Arrgard",
-    libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-actor-typed"           % akkaVersion,
-      "com.typesafe.akka" %% "akka-actor-testkit-typed"   % akkaVersion   % Test
-    )
-  )
+    Settings.common,
+    Dependencies.core)
+
+lazy val data = project
+  .in(file("data"))
+  .dependsOn(core)
+  .settings(
+      Settings.common,
+      Dependencies.core)
+
+lazy val rest = project
+  .in(file("rest"))
+  .dependsOn(core)
+  .settings(
+    Settings.common,
+    Dependencies.core)
+
+lazy val changingManager = project
+  .in(file("changingManager"))
+  .dependsOn(core)
+  .settings(
+    Settings.common,
+    Dependencies.core)
+
+lazy val gatherStatistic = project
+  .in(file("gatherStatistic"))
+  .dependsOn(core)
+  .settings(
+    Settings.common,
+    Dependencies.core)
